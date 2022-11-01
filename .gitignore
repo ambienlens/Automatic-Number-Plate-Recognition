@@ -2,5 +2,5 @@ Demo Images/demo.py
 Demo Images/testImg1.png
 Demo Images/testImg2.png
 Demo Images/testImg3.png
-.gitignore
+# .gitignore
 __pycache__
