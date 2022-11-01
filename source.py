@@ -34,6 +34,8 @@ def getNumberPlateData(path):
     coorX = approx[0][0][0] #Coordinate X
     coorY = approx[0][0][1] #Coordinate Y
 
+    # For getting the bottom left coordinate, we are finding
+    # the lowest coor of X and highest of Y
     for i in approx:
         if(i[0][0] < coorX):
             coorX = i[0][0]
