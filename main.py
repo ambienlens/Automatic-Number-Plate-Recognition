@@ -29,5 +29,11 @@ print("The Image processed has an AI Confidence of: %s%%"%(confidenceLevel))
 
 # Output of Image
 cv2.imshow('Detected Number Plate Data', processedImage)
-cv2.waitKey(0)
-cv2.destroyAllWindows() 
+
+# Quiting/Closing all windows on pressing Q
+# Quit: Q/q
+while True:
+    k = cv2.waitKey(0) & 0xFF
+    if (k == ord('q')) or (k == ord('Q')):
+        cv2.destroyAllWindows()
+        break
