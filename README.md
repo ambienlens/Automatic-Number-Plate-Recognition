@@ -22,5 +22,10 @@ There are five steps to the detection.
 - Using EasyOCR and convert ImageToText
 - Render Result using OpenCV and Tkinter
 
+We are opening the Image through OpenCV by using Tkinter askdialog to get the path of the Image through browsing. After reading the image we convert the Image into a Grayscale image.
+
+With the grayscale image, we reduce the noise & Smoothen the image using BiLateral Filter, and using Canny to detect the Edges.
+
+Finding the edges, we then use imultils to find a rectangle which is most probably the number plate. Then we crop the image into the number plate and using Easy OCR the text is extracted and we then Render the Image and show it to User.
 
 

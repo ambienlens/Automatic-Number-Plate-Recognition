@@ -66,10 +66,10 @@ def getNumberPlateData(path):
 
     fontscale = 1 if img.shape[0] < 500 else int(img.shape[0]/500)
 
-    res = cv2.putText(gammaAdjImg, text=text, org=(coorX, coorY+30), fontFace=font,
+    res = cv2.putText(gammaAdjImg, text=text, org=(coorX, coorY+60), fontFace=font,
     fontScale=fontscale, color=color, thickness=int(fontscale)+1, lineType=cv2.LINE_AA) #Adding Text
 
-    res = cv2.rectangle(gammaAdjImg, tuple(approx[0][0]), tuple(approx[2][0]), color, 3) #Drawing Rectangle
+    res = cv2.rectangle(gammaAdjImg, tuple(approx[0][0]), tuple(approx[2][0]), color, 3, lineType=cv2.LINE_AA) #Drawing Rectangle
 
     #return value
     return [res, result]
