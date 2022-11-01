@@ -2,9 +2,7 @@
 # Version 1.2
 
 # Importing Libraries
-from typing import Text
 import cv2
-from matplotlib import pyplot as plt
 import numpy as np
 import imutils
 import easyocr
@@ -57,7 +55,7 @@ def getNumberPlateData(path):
     fontscale = 1 if img.shape[0] < 500 else int(img.shape[0]/500)
 
     res = cv2.putText(gammaAdjImg, text=text, org=(approx[0][0][0], approx[1][0][1]+60),
-        fontFace=font, fontScale=fontscale, color=color, thickness=int(fontscale), lineType=cv2.LINE_AA) #Adding Text
+        fontFace=font, fontScale=fontscale, color=color, thickness=int(fontscale)+1, lineType=cv2.LINE_AA) #Adding Text
 
     res = cv2.rectangle(gammaAdjImg, tuple(approx[0][0]), tuple(approx[2][0]), color, 3) #Drawing Rectangle
 
