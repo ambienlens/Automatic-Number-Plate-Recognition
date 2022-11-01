@@ -1,5 +1,5 @@
 # Debayan Majumder 2022
-# Version 1.2
+# Version 2.1
 
 # Importing Libraries
 import cv2
@@ -30,6 +30,16 @@ def getNumberPlateData(path):
             location = approx
             break
 
+    # Finding the bottom left coordinate
+    coorX = approx[0][0][0] #Coordinate X
+    coorY = approx[0][0][1] #Coordinate Y
+
+    for i in approx:
+        if(i[0][0] < coorX):
+            coorX = i[0][0]
+        if(i[0][1] > coorY):
+            coorY = i[0][1]
+
     #masking of image
     mask = np.zeros(gray.shape, np.uint8)
     new_image = cv2.drawContours(mask, [location], 0,255, -1)
@@ -54,8 +64,8 @@ def getNumberPlateData(path):
 
     fontscale = 1 if img.shape[0] < 500 else int(img.shape[0]/500)
 
-    res = cv2.putText(gammaAdjImg, text=text, org=(approx[0][0][0], approx[1][0][1]+60),
-        fontFace=font, fontScale=fontscale, color=color, thickness=int(fontscale)+1, lineType=cv2.LINE_AA) #Adding Text
+    res = cv2.putText(gammaAdjImg, text=text, org=(coorX, coorY+30), fontFace=font,
+    fontScale=fontscale, color=color, thickness=int(fontscale)+1, lineType=cv2.LINE_AA) #Adding Text
 
     res = cv2.rectangle(gammaAdjImg, tuple(approx[0][0]), tuple(approx[2][0]), color, 3) #Drawing Rectangle
 
