@@ -1,5 +1,5 @@
 # Debayan Majumder 2022
-# Version 3.1
+# Version 3.2
 
 # Importing libraries
 from source import *
@@ -36,5 +36,6 @@ cv2.imshow('Number Plate Data', display_text(disText1=data, disText2=confidenceL
 while True:
     k = cv2.waitKey(0) & 0xFF
     if (k == ord('q')) or (k == ord('Q')):
+        print("Program Executed & Terminated with no visible errors.")
         cv2.destroyAllWindows()
         break

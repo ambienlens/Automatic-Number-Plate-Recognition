@@ -1,5 +1,5 @@
 # Debayan Majumder 2022
-# Version 3.1
+# Version 3.2
 
 # Importing Libraries
 import cv2
@@ -54,7 +54,7 @@ def getNumberPlateData(path):
     cropped_image = gray[x1:x2+1, y1:y2+1]
 
     # Using EasyOCR to read text from Image
-    reader = easyocr.Reader(['en'])
+    reader = easyocr.Reader(['en'], gpu=False)
     result = reader.readtext(cropped_image)
 
 
