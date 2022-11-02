@@ -1,5 +1,5 @@
 # Debayan Majumder 2022
-# Version 2.1
+# Version 2.2
 
 # Importing Libraries
 import cv2
@@ -62,7 +62,7 @@ def getNumberPlateData(path):
     color = (255,255,255) #Colour of the Text and rectangle
     text = removeCharacterNoise(result[0][-2])
     font = cv2.FONT_HERSHEY_SIMPLEX
-    gammaAdjImg = adjust_gamma(img)
+    gammaAdjImg = adjust_gamma(brighten_image(img))
 
     fontscale = 1 if img.shape[0] < 500 else int(img.shape[0]/500)
 
@@ -93,6 +93,14 @@ def adjust_gamma(image, gamma=0.5):
       for i in np.arange(0, 256)]).astype("uint8")
 
    return cv2.LUT(image, table)
+
+# Brightening the Image
+def brighten_image(image, brightness=20, gamma=0.5):
+    # Creating a gray image with Brightness value defaulted at 60
+    value = int(brightness/100*255)
+    overlay = np.ones(image.shape, dtype="uint8")*value
+    blend = cv2.addWeighted(image, 1, overlay, gamma, 0.0)
+    return blend
 
 # Resizing image to 720p
 def resize_image(image, size=720):

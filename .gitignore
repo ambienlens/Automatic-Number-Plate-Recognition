@@ -1,6 +1,8 @@
 Demo Images/demo.py
+Demo Images/demo.ipynb
 Demo Images/testImg1.png
 Demo Images/testImg2.png
 Demo Images/testImg3.png
 .gitignore
 __pycache__
+.vscode
