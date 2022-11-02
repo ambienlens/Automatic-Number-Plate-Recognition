@@ -1,5 +1,5 @@
 # Debayan Majumder 2022
-# Version 2.2
+# Version 3.1
 
 # Importing Libraries
 import cv2
@@ -66,7 +66,7 @@ def getNumberPlateData(path):
 
     fontscale = 1 if img.shape[0] < 500 else int(img.shape[0]/500)
 
-    res = cv2.putText(gammaAdjImg, text=text, org=(coorX, coorY+60), fontFace=font,
+    res = cv2.putText(gammaAdjImg, text=text, org=(coorX, coorY + 30), fontFace=font,
     fontScale=fontscale, color=color, thickness=int(fontscale)+1, lineType=cv2.LINE_AA) #Adding Text
 
     res = cv2.rectangle(gammaAdjImg, tuple(approx[0][0]), tuple(approx[2][0]), color, 3, lineType=cv2.LINE_AA) #Drawing Rectangle
@@ -110,3 +110,37 @@ def resize_image(image, size=720):
     dimensions = (width, height)
 
     return cv2.resize(image, dimensions, interpolation=cv2.INTER_AREA)
+
+# Displaying Number plate data with AI Confidence level
+def display_text(width=512, height=256, value=15, disText1="Hello World!",
+    disText2="50", txtColor=(255,255,255), txtColor2=(100,100,100),
+    fontScale=1, thickness=2, newFontScale=0.5, newThickness=1):
+
+    #Creating a blank canvas with value being the Brightness.
+    grayImg = np.ones((height, width), dtype="uint8")*int(value/100*255)
+
+    # Font & Text Initialisation
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    text = disText1
+    confidence = "AI Confidence level: %s%%"%(disText2)
+
+    #Extracting Textbox sizes
+    textsize = cv2.getTextSize(text, font, fontScale=fontScale, thickness=thickness)[0]
+    textsize2 = cv2.getTextSize(confidence, font, fontScale=newFontScale, thickness=newThickness)[0]
+
+    #Calculation Coordinates for textsize 1
+    textX = int((grayImg.shape[1] - textsize[0]) / 2)
+    textY = int((grayImg.shape[0] + textsize[1]) / 2)
+
+    #Rendering Results
+    finalImg = cv2.putText(grayImg, text=text, org=(textX, textY), fontFace=font, 
+        fontScale=fontScale, color=txtColor, thickness=thickness, lineType=cv2.LINE_AA)
+
+    # Final Cooridinates
+    textX = textX - int((textsize2[0] - textsize[0]) / 2)
+    textY = textY + textsize2[1] + 12
+    
+    finalImg = cv2.putText(grayImg, text=confidence, org=(textX, textY), fontFace=font, 
+        fontScale=newFontScale, color=txtColor2, thickness=newThickness, lineType=cv2.LINE_AA)
+
+    return finalImg

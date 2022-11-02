@@ -1,5 +1,5 @@
 # Debayan Majumder 2022
-# Version 2.2
+# Version 3.1
 
 # Importing libraries
 from source import *
@@ -28,7 +28,8 @@ print("The Image processed has an AI Confidence of: %s%%"%(confidenceLevel))
 # print(path)
 
 # Output of Image
-cv2.imshow('Detected Number Plate Data', processedImage)
+cv2.imshow('Processed Image Data', processedImage)
+cv2.imshow('Number Plate Data', display_text(disText1=data, disText2=confidenceLevel, value=12, width=400, height=150))
 
 # Quiting/Closing all windows on pressing Q
 # Quit: Q/q

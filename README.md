@@ -28,4 +28,8 @@ With the grayscale image, we reduce the noise & Smoothen the image using BiLater
 
 Finding the edges, we then use imultils to find a rectangle which is most probably the number plate. Then we crop the image into the number plate and using Easy OCR the text is extracted and we then Render the Image and show it to User.
 
+### **Extra Features**
+Added second window where Recognised text and AI Confidence level is displayed.
+
+
 
