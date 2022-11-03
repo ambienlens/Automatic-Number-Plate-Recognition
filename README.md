@@ -30,6 +30,7 @@ Finding the edges, we then use imultils to find a rectangle which is most probab
 
 ### **Extra Features**
 Added second window where Recognised text and AI Confidence level is displayed.
+You can select multiple files and they will be displayed sequentially one after the other. (Note: Next Image/Result will be displayed only after pressing "Q")
 
 
 
