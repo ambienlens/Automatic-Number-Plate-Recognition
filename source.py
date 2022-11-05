@@ -1,5 +1,5 @@
 # Debayan Majumder 2022
-# Version 4.1
+# Version 4.3
 
 # Importing Libraries
 import cv2
@@ -57,19 +57,47 @@ def getNumberPlateData(path):
     reader = easyocr.Reader(['en'], gpu=False)
     result = reader.readtext(cropped_image)
 
+    # If reader detects text
+    if len(result) != 0:
+        #Rendering Image
+        color = (255,255,255) #Colour of the Text and rectangle
+        text = removeCharacterNoise(result[0][-2])
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        gammaAdjImg = adjust_gamma(brighten_image(img))
 
-    #Rendering Image
-    color = (255,255,255) #Colour of the Text and rectangle
-    text = removeCharacterNoise(result[0][-2])
-    font = cv2.FONT_HERSHEY_SIMPLEX
-    gammaAdjImg = adjust_gamma(brighten_image(img))
+        fontscale = 1 if img.shape[0] < 500 else int(img.shape[0]/500)
 
-    fontscale = 1 if img.shape[0] < 500 else int(img.shape[0]/500)
+        res = cv2.putText(gammaAdjImg, text=text, org=(coorX, coorY + 30), fontFace=font,
+        fontScale=fontscale, color=color, thickness=int(fontscale)+1, lineType=cv2.LINE_AA) #Adding Text
 
-    res = cv2.putText(gammaAdjImg, text=text, org=(coorX, coorY + 30), fontFace=font,
-    fontScale=fontscale, color=color, thickness=int(fontscale)+1, lineType=cv2.LINE_AA) #Adding Text
+        res = cv2.rectangle(gammaAdjImg, tuple(approx[0][0]), tuple(approx[2][0]), color, 3, lineType=cv2.LINE_AA) #Drawing Rectangle
 
-    res = cv2.rectangle(gammaAdjImg, tuple(approx[0][0]), tuple(approx[2][0]), color, 3, lineType=cv2.LINE_AA) #Drawing Rectangle
+    else:
+        # Making Copies
+        overlay = img.copy()
+        output = img.copy()
+        alpha = 0.45
+
+        # Text Initialisation
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        text = "NO NUMBER PLATE FOUND"
+        fontScale = 1
+        thickness = 2
+
+        # Getting the Text Size
+        textsize = cv2.getTextSize(text, font, fontScale=fontScale, thickness=thickness)[0]
+
+        # Getting Text Coordinates
+        textX = int((img.shape[1] - textsize[0]) / 2)
+        textY = int((img.shape[0] + textsize[1]) / 2)
+
+        # Rendering the image
+        newImg = cv2.rectangle(overlay, (0, 0), (img.shape[1], img.shape[0]) ,(0,0,255), -1)
+        newImg = cv2.addWeighted(overlay, alpha, output, 1 - alpha, 0, output)
+        res = cv2.putText(newImg, text=text, org=(textX, textY), fontFace=font, 
+        fontScale=fontScale, color=(255,255,255), thickness=thickness, lineType=cv2.LINE_AA)
+
+        result = [([[0, 0], [0, 0], [0, 0], [0, 0]], 'DATA NOT FOUND', 0)]
 
     #return value
     return [res, result]
