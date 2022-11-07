@@ -54,7 +54,7 @@ def getNumberPlateData(path):
     cropped_image = gray[x1:x2+1, y1:y2+1]
 
     # Using EasyOCR to read text from Image
-    reader = easyocr.Reader(['en'], gpu=False)
+    reader = easyocr.Reader(['en'])
     result = reader.readtext(cropped_image)
 
     # If reader detects text
